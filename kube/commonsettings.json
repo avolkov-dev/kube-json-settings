@@ -1,0 +1,5 @@
+{
+    "ValueA": "plain-value-from-common-config-a",
+    "ValueB": "plain-value-from-common-config-b",
+    "ValueC": "plain-value-from-common-config-c"
+}

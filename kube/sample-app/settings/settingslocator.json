@@ -1,0 +1,9 @@
+{
+    "Secrets":[
+        "secrets/secrets.json"
+    ],
+    "Settings":[
+        "settings/commonsettings.json",
+        "settings/appsettings.json"
+    ]
+}
