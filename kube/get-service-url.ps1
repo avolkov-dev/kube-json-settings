@@ -1,0 +1,1 @@
+minikube service --url sample-app-svc

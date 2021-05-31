@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kube-sample-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kube-sample-app
+  template:
+    metadata:
+      labels:
+        app: kube-sample-app
+    spec:
+      containers:
+        - name: kube-sample-app
+          image: andreyvolkov/kube-sample-app
+          ports:
+          - containerPort: 5000
+            protocol: TCP          
+          volumeMounts:
+          - name: appsettings-volume
+            mountPath: /app/settings
+          - name: secrets-volume
+            mountPath: /app/secrets  
+      volumes:
+      - name: appsettings-volume
+        configMap:
+          name: kube-sample-app-appsettings      
+      - name: secrets-volume
+        secret:
+          secretName: common-secrets
