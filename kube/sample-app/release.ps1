@@ -5,10 +5,7 @@ $ErrorActionPreference = "Stop"
 kubectl delete secret common-secrets  --ignore-not-found
 kubectl create secret generic common-secrets --from-file=../secrets/
 
-kubectl delete configmap kube-sample-app-appsettings  --ignore-not-found
-# enumerate all needed files to config the application
-# these files also should be noted in settingslocator.json
-kubectl create configmap kube-sample-app-appsettings --from-file=./settings --from-file=../commonsettings.json
+./settings/build-configmap.ps1
   
 kubectl apply -f deployment.yaml   
 kubectl apply -f service.yaml       

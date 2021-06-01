@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using StackExchange.Utils;
@@ -34,8 +35,19 @@ namespace SettingsSampleApp
                                 }
                             }
                         );
+                    
+                    // matches a key wrapped in braces and prefixed with a '$' 
+                    // e.g. ${Key} or ${Section:Key} or ${Section:NestedSection:Key}
+                    var substitutionPattern = new Regex(@"\$\{(?<key>[^\s]+?)\}", RegexOptions.Compiled);
 
-                    var t = cfg.Build();
+                    foreach (var kv in cfg.Build().AsEnumerable())
+                    {
+                        if (kv.Value != null && substitutionPattern.Matches(kv.Value).Any())
+                        {
+                            throw new InvalidOperationException(
+                                $"Configuration mismatch: secret value {kv.Value} not substituted for {kv.Key}");
+                        }
+                    }
                 }) 
                 .UseStartup<Startup>()
                 .UseUrls("http://*:5000/")
