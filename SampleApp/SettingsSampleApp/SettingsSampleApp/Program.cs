@@ -77,11 +77,6 @@ namespace SettingsSampleApp
                 throw new InvalidOperationException("Settings not configured");
             }
 
-            if (result.SecretsFilePath.Length == 0)
-            {
-                throw new InvalidOperationException("Secrets not configured");
-            }
-
             return result;
         }
         
