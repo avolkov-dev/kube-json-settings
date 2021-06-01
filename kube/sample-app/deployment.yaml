@@ -23,6 +23,13 @@ spec:
             mountPath: /app/settings
           - name: secrets-volume
             mountPath: /app/secrets  
+          env:
+          - name: SecretsFilePath__0 
+            value: "secrets/secrets.json"
+          - name: SettingsFilePath__0 
+            value: "settings/commonsettings.json"
+          - name: SettingsFilePath__1
+            value: "settings/appsettings.json"            
       volumes:
       - name: appsettings-volume
         configMap:

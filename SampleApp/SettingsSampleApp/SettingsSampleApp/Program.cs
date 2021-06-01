@@ -20,7 +20,7 @@ namespace SettingsSampleApp
                             "secrets",
                             c =>
                             {
-                                foreach (var path in configLocator.Secrets)
+                                foreach (var path in configLocator.SecretsFilePath)
                                 {
                                     c.AddJsonFile(path, optional: false, reloadOnChange: true);
                                 }
@@ -29,7 +29,7 @@ namespace SettingsSampleApp
                         .WithSubstitution(
                             c =>
                             {
-                                foreach (var path in configLocator.Settings)
+                                foreach (var path in configLocator.SettingsFilePath)
                                 {
                                     c.AddJsonFile(path, optional: false, reloadOnChange: true);
                                 }
@@ -60,8 +60,8 @@ namespace SettingsSampleApp
     {
         private SettingsLocator()
         {
-            Secrets = new string[0];
-            Settings = new string[0];
+            SecretsFilePath = new string[0];
+            SettingsFilePath = new string[0];
         }
         
         public static SettingsLocator Read()
@@ -72,12 +72,12 @@ namespace SettingsSampleApp
             
             cb.Bind(result);
 
-            if (result.Settings.Length == 0)
+            if (result.SettingsFilePath.Length == 0)
             {
                 throw new InvalidOperationException("Settings not configured");
             }
 
-            if (result.Secrets.Length == 0)
+            if (result.SecretsFilePath.Length == 0)
             {
                 throw new InvalidOperationException("Secrets not configured");
             }
@@ -85,7 +85,7 @@ namespace SettingsSampleApp
             return result;
         }
         
-        public string[] Secrets { get; set; }
-        public string[] Settings { get; set; }
+        public string[] SecretsFilePath { get; set; }
+        public string[] SettingsFilePath { get; set; }
     }
 }
